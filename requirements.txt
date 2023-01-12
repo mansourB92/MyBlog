@@ -1,0 +1,8 @@
+Flask
+pandas
+Jinja2
+Werkzeug
+WTForms
+flask_wtf
+email_validator
+flask-bcrypt
