@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+
+{% block content %}
+{% include 'include/formError.html' %}
+<div class="modal-content" style="padding: 30px; width: 350px; margin: 20px;">
+    <form action="" method="post">
+        {{form.csrf_token}}
+        <div class="mb-3 row" style="margin: 15px 15px 10px 1px;">
+            {{form.username.label(class="form-label")}}
+            {{form.username(class="form-control")}}
+        </div>
+        <div class="mb-3 row" style="margin: 15px 15px 10px 1px;">
+            {{form.password.label(class="form-label")}}
+            {{form.password(class="form-control")}}
+        </div>
+        <div class="mb-3 row" style="margin: 15px 15px 10px 1px;">
+            {{form.email.label(class="form-label")}}
+            {{form.email(class="form-control")}}
+        </div>
+        <div class="mb-3 row" style="margin: 15px 15px 10px 1px;">
+            <input type="submit" value="register" class="btn btn-info" />
+        </div>
+    </form>
+</div>
+{% endblock %}
