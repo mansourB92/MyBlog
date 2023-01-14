@@ -17,6 +17,7 @@
     <SuppressCollectPythonCloudServiceFiles>true</SuppressCollectPythonCloudServiceFiles>
     <Name>Blog</Name>
     <RootNamespace>Blog</RootNamespace>
+    <SuppressEnvironmentCreationPrompt>True</SuppressEnvironmentCreationPrompt>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -49,6 +50,7 @@
   <ItemGroup>
     <Content Include="Blog\templates\include\formError.html" />
     <Content Include="Blog\templates\include\message.html" />
+    <Content Include="Blog\templates\Log.html" />
     <Content Include="Blog\templates\Reg.html" />
     <Content Include="requirements.txt" />
     <Content Include="Blog\static\content\bootstrap.css" />
