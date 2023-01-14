@@ -10,6 +10,6 @@ class RegForm(FlaskForm):
 
 
 class LogForm(FlaskForm):
-    email = StringField("email", validators=[DataRequired(), Email()])
+    username = StringField("username", validators=[DataRequired()])
     password = PasswordField("password", validators=[DataRequired()])
     remember = BooleanField("remember me")
