@@ -45,7 +45,8 @@ def about():
 
 @app.route('/Reg', methods=['GET', 'POST'])
 def Reg():
-    """Renders the about page."""
+    if current_user.is_authenticated:
+        return redirect(url_for('home'))
     RForm = RegForm()
     ch_user = User.query.filter_by(user_name=RForm.username.data).first()
     ch_email = User.query.filter_by(email=RForm.email.data).first()
@@ -55,6 +56,7 @@ def Reg():
         db.session.add(user)
         db.session.commit()
         flash(f"Welcome {RForm.username.data}, Your registered successfully", "success")
+        login_user(user)
         return redirect(url_for('home'))
     elif request.method == "POST":
         flash("This Username or Email already exists", "warning")
@@ -83,7 +85,6 @@ def Log():
     )
 
 @app.route('/Logout')
-@login_required
 def Logout():
     logout_user()
     flash("You logout successfully", "success")
