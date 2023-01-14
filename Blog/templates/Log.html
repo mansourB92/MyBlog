@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="modal-content" style="padding: 30px; width: 350px; margin: 20px;">
+    <form action="" method="post">
+        {{form.csrf_token}}
+        <div class="mb-3 row" style="margin: 15px 15px 10px 1px;">
+            {{form.username.label(class="form-label")}}
+            {{form.username(class="form-control")}}
+        </div>
+        <div class="mb-3 row" style="margin: 15px 15px 10px 1px;">
+            {{form.password.label(class="form-label")}}
+            {{form.password(class="form-control")}}
+        </div>
+        <div class="form-check" style="margin: 15px 15px 10px 1px;">
+            {{form.remember(class="form-check-input")}}
+            {{form.remember.label(class="form-check-label")}}
+        </div>
+        <div class="mb-3 row" style="margin: 15px 15px 10px 1px;">
+            <input type="submit" value="login" class="btn btn-info" />
+        </div>
+    </form>
+</div>
+{% endblock %}
