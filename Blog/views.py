@@ -4,9 +4,14 @@ Routes and views for the flask application.
 
 from datetime import datetime
 from flask import render_template, redirect, url_for, flash, request
-from Blog import app, db, bcrypt
+from Blog import app, db, bcrypt, login_manager
 from Blog.database import *
 from Blog.form_blog import *
+from flask_login import login_user, current_user, logout_user, login_required
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(user_id)
 
 @app.route('/')
 @app.route('/home')
@@ -58,3 +63,28 @@ def Reg():
         title='Register',
         form=RForm
     )
+@app.route('/Log', methods=['GET', 'POST'])
+def Log():
+    if current_user.is_authenticated:
+        return redirect(url_for('home'))
+    Lform = LogForm()
+    if Lform.validate_on_submit():
+        user = User.query.filter_by(user_name=Lform.username.data).first()
+        if user and bcrypt.check_password_hash(user.pass_word, Lform.password.data):
+            login_user(user, remember=Lform.remember.data)
+            flash(f"Welcome {Lform.username.data}, Your login successfully", "success")
+            return redirect(url_for('home'))
+        else:
+            flash("Email or Password is wrong", "danger")
+    return render_template(
+        'Log.html',
+        title='Login',
+        form=Lform
+    )
+
+@app.route('/Logout')
+@login_required
+def Logout():
+    logout_user()
+    flash("You logout successfully", "success")
+    return redirect(url_for('home'))
