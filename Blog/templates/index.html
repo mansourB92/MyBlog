@@ -2,8 +2,15 @@
 
 {% block content %}
 
-<div class="modal-content" style="padding: 30px; width: auto; margin: 20px;">
-    <h2>Home</h2>
+<div class="body-content" style="padding: 20px; width: auto; margin: 10px;">
+    {% for post in posts %}
+    <div class="modal-content" style="padding: 20px; width: 700px; margin: 20px; border-radius: 20px">
+        <h3>{{post.title}}</h3>
+        <small>{{post.author.user_name}} | {{post.date.strftime('%y / %m / %d')}}</small>
+        <hr/>
+        <p>{{post.content}}</p>
+    </div>
+    {% endfor %}
 </div>
 
 {% endblock %}
