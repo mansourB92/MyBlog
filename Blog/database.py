@@ -7,7 +7,7 @@ class User(db.Model, UserMixin):
     user_name = db.Column(db.String(40), unique=True, nullable=False)
     pass_word = db.Column(db.String(40), nullable=False)
     email = db.Column(db.String(100), unique=True, nullable=False)
-    posts = db.relationship('Post', backref='user', lazy=True)
+    posts = db.relationship('Post', backref='author', lazy=True)
 
 
 class Post(db.Model):
