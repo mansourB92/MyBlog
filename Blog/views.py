@@ -17,10 +17,12 @@ def load_user(user_id):
 @app.route('/home')
 def home():
     """Renders the home page."""
+    posts= Post.query.all()
     return render_template(
         'index.html',
         title='Home Page',
         year=datetime.now().year,
+        posts=posts
     )
 
 @app.route('/contact')
@@ -85,7 +87,51 @@ def Log():
     )
 
 @app.route('/Logout')
+@login_required
 def Logout():
     logout_user()
     flash("You logout successfully", "success")
     return redirect(url_for('home'))
+
+@app.route('/profile', methods=['GET', 'POST'])
+@login_required
+def profile():
+    form = UpdateProfile()
+    ch_user = ""
+    ch_email = ""
+    if current_user.user_name != form.username.data:
+        ch_user = User.query.filter_by(user_name=form.username.data).first()
+    if current_user.email != form.email.data:
+        ch_email = User.query.filter_by(email=form.email.data).first()
+    if form.validate_on_submit() and not(ch_user) and not(ch_email):
+        current_user.user_name = form.username.data
+        current_user.email = form.email.data
+        db.session.commit()
+        flash("Your account update successfully", "success")
+        return redirect(url_for('profile'))
+    elif request.method == "POST":
+        flash("This Username or Email already exists", "warning")
+    elif request.method == "GET":
+        form.username.data = current_user.user_name
+        form.email.data = current_user.email
+    return render_template(
+        'profile.html',
+        title='Profile',
+        form = form
+        )
+
+@app.route('/post/new', methods=['GET', 'POST'])
+@login_required
+def new_post():
+    form = PostForm()
+    if form.validate_on_submit():
+        post = Post(title=form.title.data, content=form.content.data, author=current_user)
+        db.session.add(post)
+        db.session.commit()
+        flash("Your post created successfully", "success")
+        return redirect(url_for('home'))
+    return render_template(
+        'create_post.html',
+        title='Create new post',
+        form = form
+        )
