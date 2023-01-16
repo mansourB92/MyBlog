@@ -16,4 +16,7 @@ app.secret_key = SECRET_KEY
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///Blog_DB.db"
 db.init_app(app)
 login_manager = LoginManager(app)
+login_manager.login_view = 'Log'
+login_manager.login_message = 'Please login first'
+login_manager.login_message_category = 'info'
 import Blog.views
