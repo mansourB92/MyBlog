@@ -96,6 +96,7 @@ def Logout():
 @app.route('/profile', methods=['GET', 'POST'])
 @login_required
 def profile():
+    posts= Post.query.filter_by(user_id=current_user.id)
     form = UpdateProfile()
     ch_user = ""
     ch_email = ""
@@ -117,7 +118,8 @@ def profile():
     return render_template(
         'profile.html',
         title='Profile',
-        form = form
+        form = form,
+        posts=posts
         )
 
 @app.route('/post/new', methods=['GET', 'POST'])
@@ -135,3 +137,12 @@ def new_post():
         title='Create new post',
         form = form
         )
+
+@app.route('/post/<post_id>/delete')
+@login_required
+def delete(post_id):
+    post = Post.query.get_or_404(post_id)
+    db.session.delete(post)
+    db.session.commit()
+    flash(f"{post.title} is deleted", "info")
+    return redirect(url_for('profile'))
