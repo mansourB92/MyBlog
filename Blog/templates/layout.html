@@ -25,7 +25,7 @@
                     <li><a href="{{ url_for('home') }}">Home</a></li>
                     {% if current_user.is_authenticated %}
                     <li><a href="{{ url_for('profile') }}">Profile</a></li>
-                    <li><a href="{{ url_for('new_post') }}">Create Post</a></li>
+                    <li><a href="{{ url_for('new_post') }}">Create New Post</a></li>
                     <li><a href="{{ url_for('Logout') }}">Log out</a></li>
                     {% else %}
                     <li><a href="{{ url_for('Log') }}">Login</a></li>
