@@ -97,6 +97,7 @@ def Logout():
 @login_required
 def profile():
     posts= Post.query.filter_by(user_id=current_user.id)
+    Chekposts = Post.query.filter_by(user_id=current_user.id).first()
     form = UpdateProfile()
     ch_user = ""
     ch_email = ""
@@ -119,7 +120,8 @@ def profile():
         'profile.html',
         title='Profile',
         form = form,
-        posts=posts
+        posts=posts,
+        Chekposts=Chekposts
         )
 
 @app.route('/post/new', methods=['GET', 'POST'])
