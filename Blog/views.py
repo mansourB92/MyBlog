@@ -3,7 +3,7 @@ Routes and views for the flask application.
 """
 
 from datetime import datetime
-from flask import render_template, redirect, url_for, flash, request
+from flask import render_template, redirect, url_for, flash, request, abort
 from Blog import app, db, bcrypt, login_manager
 from Blog.database import *
 from Blog.form_blog import *
@@ -142,7 +142,31 @@ def new_post():
 @login_required
 def delete(post_id):
     post = Post.query.get_or_404(post_id)
+    if post.author != current_user:
+        abort(403)
     db.session.delete(post)
     db.session.commit()
     flash(f"{post.title} is deleted", "info")
     return redirect(url_for('profile'))
+
+@app.route('/post/<int:post_id>/update', methods=['GET', 'POST'])
+@login_required
+def update(post_id):
+    post = Post.query.get_or_404(post_id)
+    if post.author != current_user:
+        abort(403)
+    form = PostForm()
+    if form.validate_on_submit():
+        post.title = form.title.data
+        post.content = form.content.data
+        db.session.commit()
+        flash("Your post updated successfully", "info")
+        return redirect(url_for('profile'))
+    elif request.method == "GET":
+        form.title.data = post.title
+        form.content.data = post.content
+    return render_template(
+        'update.html',
+        title='Update post',
+        form = form
+        )
