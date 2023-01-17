@@ -30,7 +30,7 @@
     <div class="modal-content" style="padding: 20px; width: auto; margin: 15px; box-shadow: 0px 3px 5px antiquewhite; border-radius: 10px ">
         
         <div class="mb-3 row" style="margin: 15px 15px 10px 1px;">
-            <div><h3>{{post.title}}<small> | {{post.date.strftime('%y / %m / %d')}}</small></h3></div><div style="position: absolute; right: 20px; top: 60px;"><a href="{{url_for('delete', post_id = post.id)}}" class="btn btn-danger">Delete</a></div>
+            <div><h3>{{post.title}}<small> | {{post.date.strftime('%y / %m / %d')}}</small></h3></div><div style="position: absolute; right: 20px; top: 60px;"><a href="{{url_for('update', post_id = post.id)}}" class="btn btn-info">Update</a>  <a href="{{url_for('delete', post_id = post.id)}}" class="btn btn-danger">Delete</a></div>
         </div>
         <hr />
         <p>{{post.content}}</p>
