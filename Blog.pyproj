@@ -54,6 +54,7 @@
     <Content Include="Blog\templates\Log.html" />
     <Content Include="Blog\templates\profile.html" />
     <Content Include="Blog\templates\Reg.html" />
+    <Content Include="Blog\templates\update.html" />
     <Content Include="requirements.txt" />
     <Content Include="Blog\static\content\bootstrap.css" />
     <Content Include="Blog\static\content\bootstrap.min.css" />
