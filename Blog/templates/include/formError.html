@@ -1,17 +1,31 @@
+{% if form.username %}
 {% if form.username.errors %}
 {% for e in form.username.errors %}
 <div class="alert alert-warning">{{e}}</div>
 {% endfor %}
 {% endif %}
+{% endif %}
 
+{% if form.password %}
 {% if form.password.errors %}
 {% for e in form.password.errors %}
 <div class="alert alert-warning">{{e}}</div>
 {% endfor %}
 {% endif %}
+{% endif %}
 
+{% if form.email %}
 {% if form.email.errors %}
 {% for e in form.email.errors %}
 <div class="alert alert-warning">{{e}}</div>
 {% endfor %}
+{% endif %}
+{% endif %}
+
+{% if form.image %}
+{% if form.image.errors %}
+{% for e in form.image.errors %}
+<div class="alert alert-warning">{{e}}</div>
+{% endfor %}
+{% endif %}
 {% endif %}
