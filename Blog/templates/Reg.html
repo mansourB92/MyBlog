@@ -2,7 +2,7 @@
 
 {% block content %}
 {% include 'include/formError.html' %}
-<div class="modal-content" style="padding: 30px; width: 350px; margin: 20px;">
+<div class="modal-content" style="padding: 30px; width: 390px; margin: 20px;">
     <form action="" method="post" enctype="multipart/form-data">
         {{form.csrf_token}}
         <div class="mb-3 row" style="margin: 15px 15px 10px 1px;">
@@ -16,6 +16,59 @@
         <div class="mb-3 row" style="margin: 15px 15px 10px 1px;">
             {{form.email.label(class="form-label")}}
             {{form.email(class="form-control")}}
+        </div>
+        <hr>
+        <div class="mb-3 row" style="margin: 15px 15px 10px 1px;">
+            <p class="form-label"><b>Choose or upload your avatar</b></p>
+            <table>
+                <tr>
+                    <td style="padding-right: 20px;">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="avatar_Radio" id="avatar_1" value="avatar1.jpg" checked>
+                            <label class="form-check-label" for="avatar_1">
+                                <img src="{{url_for('download_file', name='avatar1.jpg')}}" alt="avatar1" style="width: 60px; height: 60px; border-radius: 5px; padding: 3px; margin-left: 5px; box-shadow: 0px 2px 3px #666666;" />
+                            </label>
+                        </div>
+                    </td>
+                    <td style="padding-right: 20px;">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="avatar_Radio" id="avatar_2" value="avatar2.jpg">
+                            <label class="form-check-label" for="avatar_2">
+                                <img src="{{url_for('download_file', name='avatar2.jpg')}}" alt="avatar2" style="width: 60px; height: 60px; border-radius: 5px; padding: 3px; margin-left: 5px; box-shadow: 0px 2px 3px #666666;" />
+                            </label>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="avatar_Radio" id="avatar_3" value="avatar3.jpg">
+                            <label class="form-check-label" for="avatar_3">
+                                <img src="{{url_for('download_file', name='avatar3.jpg')}}" alt="avatar3" style="width: 60px; height: 60px; border-radius: 5px; padding: 3px; margin-left: 5px; box-shadow: 0px 2px 3px #666666;" />
+                            </label>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="avatar_Radio" id="avatar_4" value="avatar4.jpg">
+                            <label class="form-check-label" for="avatar_4">
+                                <img src="{{url_for('download_file', name='avatar4.jpg')}}" alt="avatar4" style="width: 60px; height: 60px; border-radius: 5px; padding: 3px; margin-left: 5px; box-shadow: 0px 2px 3px #666666;" />
+                            </label>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="avatar_Radio" id="avatar_5" value="avatar5.jpg">
+                            <label class="form-check-label" for="avatar_5">
+                                <img src="{{url_for('download_file', name='avatar5.jpg')}}" alt="avatar5" style="width: 60px; height: 60px; border-radius: 5px; padding: 3px; margin-left: 5px; box-shadow: 0px 2px 3px #666666;" />
+                            </label>
+                        </div>
+                    </td>
+                    <td>
+                        
+                    </td>
+                </tr>
+            </table>
         </div>
         <div class="mb-3 row" style="margin: 15px 15px 10px 1px;">
             {{form.image.label(class="form-label")}}
