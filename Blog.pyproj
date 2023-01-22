@@ -40,6 +40,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Blog\" />
+    <Folder Include="Blog\database\" />
+    <Folder Include="Blog\uploads\" />
     <Folder Include="Blog\static\" />
     <Folder Include="Blog\static\content\" />
     <Folder Include="Blog\static\fonts\" />
