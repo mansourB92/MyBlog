@@ -61,7 +61,7 @@ def Reg():
     ch_email = User.query.filter_by(email=RForm.email.data).first()
     if RForm.validate_on_submit() and not(ch_user) and not(ch_email):
         pw_hash = bcrypt.generate_password_hash(RForm.password.data).decode('utf-8')
-        filename = "avatar1.jpg"
+        filename = request.form.get("avatar_Radio")
         if RForm.image.data:
             f = RForm.image.data
             filename = secure_filename(f.filename)
