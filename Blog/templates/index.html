@@ -5,10 +5,16 @@
 <div class="body-content" style="padding: 20px; width: auto; margin: 10px;">
     {% for post in posts %}
     <div class="modal-content" style="padding: 20px; width: auto; margin: 20px; border-radius: 10px;">
-        <h3>{{post.title}}</h3>
-        <small>{{post.author.user_name}} | {{post.date.strftime('%y / %m / %d')}}</small>
-        <hr/>
+        <img src="{{url_for('download_file', name=post.author.image)}}" alt="{{post.author.user_name}}" style="width: 60px; height: 60px; border-radius: 5px; padding: 3px; margin: 0px; box-shadow: 0px 2px 4px #666666;" />
+        <div style="position: absolute; left: 92px; top: 5px;">
+            <h3>{{post.title}}</h3>
+            <small>{{post.author.user_name}} | {{post.date.strftime('%y / %m / %d')}}</small>
+        </div>
+        <hr />
         <p>{{post.content}}</p>
+        {% if post.image %}
+        <img src="{{url_for('download_file', name=post.image)}}" alt="{{post.title}}" style="width: 500px;" />
+        {% endif %}
     </div>
     {% endfor %}
 </div>
