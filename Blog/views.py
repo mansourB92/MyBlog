@@ -3,11 +3,14 @@ Routes and views for the flask application.
 """
 
 from datetime import datetime
-from flask import render_template, redirect, url_for, flash, request, abort
-from Blog import app, db, bcrypt, login_manager
+from flask import render_template, redirect, url_for, flash, request, abort, send_from_directory
+from Blog import app, db, bcrypt, login_manager, allowed_file
 from Blog.database import *
 from Blog.form_blog import *
 from flask_login import login_user, current_user, logout_user, login_required
+import random
+import os
+from werkzeug.utils import secure_filename
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -24,6 +27,10 @@ def home():
         year=datetime.now().year,
         posts=posts
     )
+
+@app.route('/uploads/<name>')
+def download_file(name):
+    return send_from_directory('uploads/', name)
 
 @app.route('/contact')
 def contact():
@@ -54,7 +61,12 @@ def Reg():
     ch_email = User.query.filter_by(email=RForm.email.data).first()
     if RForm.validate_on_submit() and not(ch_user) and not(ch_email):
         pw_hash = bcrypt.generate_password_hash(RForm.password.data).decode('utf-8')
-        user = User(user_name=RForm.username.data, pass_word=pw_hash, email=RForm.email.data)
+        filename = "avatar1.jpg"
+        if RForm.image.data:
+            f = RForm.image.data
+            filename = secure_filename(f.filename)
+            f.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        user = User(user_name=RForm.username.data, pass_word=pw_hash, image=filename, email=RForm.email.data)
         db.session.add(user)
         db.session.commit()
         flash(f"Welcome {RForm.username.data}, Your registered successfully", "success")
@@ -108,6 +120,11 @@ def profile():
     if form.validate_on_submit() and not(ch_user) and not(ch_email):
         current_user.user_name = form.username.data
         current_user.email = form.email.data
+        if form.image.data:
+            f = form.image.data
+            filename = secure_filename(f.filename)
+            f.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            current_user.image = filename
         db.session.commit()
         flash("Your account update successfully", "success")
         return redirect(url_for('profile'))
@@ -129,7 +146,12 @@ def profile():
 def new_post():
     form = PostForm()
     if form.validate_on_submit():
-        post = Post(title=form.title.data, content=form.content.data, author=current_user)
+        filename = ""
+        if form.image.data:
+            f = form.image.data
+            filename = secure_filename(f.filename)
+            f.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        post = Post(title=form.title.data, content=form.content.data, image=filename, author=current_user)
         db.session.add(post)
         db.session.commit()
         flash("Your post created successfully", "success")
