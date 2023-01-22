@@ -1,8 +1,13 @@
 {% extends "layout.html" %}
 
 {% block content %}
+{% if form.image.errors %}
+{% for e in form.image.errors %}
+<div class="alert alert-warning">{{e}}</div>
+{% endfor %}
+{% endif %}
 <div class="modal-content" style="padding: 30px; width: 500px; margin: 20px;">
-    <form action="" method="post">
+    <form action="" method="post" enctype="multipart/form-data">
         {{form.csrf_token}}
         <div class="mb-3 row" style="margin: 15px 15px 10px 1px;">
             {{form.title.label(class="form-label")}}
@@ -11,6 +16,10 @@
         <div class="mb-3 row" style="margin: 15px 15px 10px 1px;">
             {{form.content.label(class="form-label")}}
             {{form.content(class="form-control")}}
+        </div>
+        <div class="mb-3 row" style="margin: 15px 15px 10px 1px;">
+            {{form.image.label(class="form-label")}}
+            {{form.image(class="form-control")}}
         </div>
         <div class="mb-3 row" style="margin: 15px 15px 10px 1px;">
             <input type="submit" value="Create" class="btn btn-secondary" />
