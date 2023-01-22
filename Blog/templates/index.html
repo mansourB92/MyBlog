@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<div class="body-content" style="padding: 20px; width: auto; margin: 10px;">
+<div class="body-content" style="width: auto;">
     {% for post in posts %}
     <div class="modal-content" style="padding: 20px; width: auto; margin: 20px; border-radius: 10px;">
         <img src="{{url_for('download_file', name=post.author.image)}}" alt="{{post.author.user_name}}" style="width: 60px; height: 60px; border-radius: 5px; padding: 3px; margin: 0px; box-shadow: 0px 2px 4px #666666;" />
